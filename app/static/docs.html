@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CommerceForge Developer Console</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui.css">
+  <link rel="stylesheet" href="/static/docs.css">
+  <link rel="stylesheet" href="/static/docs-fixes.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="console-nav">
+    <a class="console-logo" href="/"><b>CF</b><span>CommerceForge</span><i>DEVELOPER</i></a>
+    <nav><a href="/store">Storefront</a><a class="active" href="/docs">API explorer</a><a href="/redoc">Reference</a><a class="health" href="/status"><span></span> Operational</a></nav>
+  </header>
+  <main>
+    <section class="console-hero">
+      <div class="hero-copy"><span class="eyebrow">COMMERCEFORGE DEVELOPER CONSOLE</span><h1>Explore the commerce<br><em>engine.</em></h1><p>Inspect every endpoint, understand its contract, authorize with a JWT, and send live requests directly from your browser.</p></div>
+      <div class="hero-stats"><div><small>VERSION</small><strong>1.0.0</strong></div><div><small>API GROUPS</small><strong>7</strong></div><div><small>AUTH</small><strong>JWT</strong></div><div><small>FORMAT</small><strong>JSON</strong></div></div>
+    </section>
+    <section class="quick-guide">
+      <div class="guide-title"><span>QUICK START</span><h2>Three steps to your first request</h2></div>
+      <ol><li><b>01</b><div><strong>Create an account</strong><span>Open Authentication → POST /register</span></div></li><li><b>02</b><div><strong>Copy your token</strong><span>Use the access_token from the response</span></div></li><li><b>03</b><div><strong>Authorize requests</strong><span>Select Authorize and enter Bearer token</span></div></li></ol>
+    </section>
+    <section class="explorer-shell">
+      <div class="explorer-head"><div><span class="live-dot"></span><div><small>INTERACTIVE DOCUMENTATION</small><h2>REST API Explorer</h2></div></div><div class="explorer-tools"><button class="demo-auth" id="loginHelp">Get access token</button><div class="base-url"><small>BASE URL</small><code id="baseUrl"></code><button id="copyBase" aria-label="Copy base URL">Copy</button></div></div></div>
+      <div id="swagger-ui"><div class="docs-loader"><i></i><span>Loading API definition...</span></div></div>
+    </section>
+  </main>
+  <footer><span>CommerceForge API · OpenAPI 3.1</span><div><a href="/store">Storefront</a><a href="/openapi.json">Raw schema</a><a href="/redoc">ReDoc</a></div></footer>
+  <div class="copy-toast" id="copyToast">Base URL copied</div>
+  <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
+  <script>
+    const base = window.location.origin;
+    document.getElementById("baseUrl").textContent = base;
+    document.getElementById("copyBase").addEventListener("click", async () => {
+      await navigator.clipboard.writeText(base);
+      const toast = document.getElementById("copyToast"); toast.classList.add("show"); setTimeout(() => toast.classList.remove("show"), 1800);
+    });
+    window.ui = SwaggerUIBundle({
+      url: "/openapi.json",
+      dom_id: "#swagger-ui",
+      deepLinking: true,
+      displayRequestDuration: true,
+      filter: true,
+      persistAuthorization: true,
+      docExpansion: "list",
+      defaultModelsExpandDepth: 1,
+      defaultModelExpandDepth: 2,
+      tagsSorter: "alpha",
+      operationsSorter: "method",
+      syntaxHighlight: { activate: true, theme: "agate" },
+      presets: [SwaggerUIBundle.presets.apis, SwaggerUIBundle.SwaggerUIStandalonePreset],
+      layout: "BaseLayout"
+    });
+    document.getElementById("loginHelp").addEventListener("click", () => {
+      window.location.hash = "#/Authentication/login_api_auth_login_post";
+      const toast = document.getElementById("copyToast"); toast.textContent = "Open Login, select Try it out, then copy the returned token into Authorize"; toast.classList.add("show"); setTimeout(() => toast.classList.remove("show"), 4500);
+    });
+  </script>
+</body>
+</html>

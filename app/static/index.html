@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CommerceForge API</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="noise"></div><div class="orb orb-a"></div><div class="orb orb-b"></div>
+  <nav><a class="brand" href="/"><span>CF</span> CommerceForge</a><div><a href="/store">Storefront</a><a href="/docs">API Explorer</a><a href="/redoc">Reference</a><a class="status" href="/status"><i></i> API Online</a></div></nav>
+  <main>
+    <section class="hero">
+      <div class="eyebrow">Production-ready commerce backend</div>
+      <h1>Build storefronts<br><em>without backend friction.</em></h1>
+      <p>A secure REST API for authentication, products, inventory, carts, coupons, orders, reviews, and administration - documented automatically with OpenAPI.</p>
+      <div class="actions"><a class="primary" href="/store">Open storefront <b>→</b></a><a class="secondary" href="/docs">Explore the API</a></div>
+      <div class="metrics"><div><strong>25+</strong><span>API operations</span></div><div><strong>JWT</strong><span>Secure access</span></div><div><strong>100%</strong><span>OpenAPI documented</span></div></div>
+    </section>
+    <section class="terminal">
+      <div class="terminal-bar"><span></span><span></span><span></span><small>POST /api/auth/login</small></div>
+      <pre><code><b>curl</b> -X POST http://localhost:8000/api/auth/login \
+  -H <i>"Content-Type: application/json"</i> \
+  -d <i>'{"email":"your@email.com",
+       "password":"YOUR_PASSWORD"}'</i>
+
+<span>{
+  "access_token": "eyJhbGciOiJIUzI1NiIs...",
+  "token_type": "bearer",
+  "user": { "role": "admin" }
+}</span></code></pre>
+    </section>
+    <section class="features">
+      <article><div>01</div><h2>Identity & access</h2><p>PBKDF2 password hashing, expiring JWT tokens, protected endpoints, and admin role enforcement.</p></article>
+      <article><div>02</div><h2>Commerce engine</h2><p>Searchable catalog, inventory-safe carts, atomic checkout, coupons, and complete order history.</p></article>
+      <article><div>03</div><h2>Developer ready</h2><p>Swagger and ReDoc, validation, consistent errors, automated tests, seed data, and Docker support.</p></article>
+    </section>
+  </main>
+  <footer><span>CommerceForge API · Phase 2 Python Internship</span><span>FastAPI · SQLAlchemy · SQLite · JWT</span></footer>
+</body>
+</html>

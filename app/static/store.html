@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CommerceForge Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/store.css">
+  <link rel="stylesheet" href="/static/store-extras.css">
+</head>
+<body>
+  <div class="aurora a1"></div><div class="aurora a2"></div><div class="grid-bg"></div>
+  <header>
+    <a class="logo" href="/"><b>CF</b><span>CommerceForge</span></a>
+    <nav><a href="#shop">Shop</a><button class="nav-link" id="ordersBtn">Orders</button><a href="/docs">API docs</a></nav>
+    <div class="header-actions">
+      <button class="icon-btn theme-btn" id="themeBtn" aria-label="Change theme">☼</button>
+      <button class="account-btn" id="accountBtn"><span class="avatar">GU</span><span id="accountText">Sign in</span></button>
+      <button class="cart-btn" id="cartBtn"><span>Bag</span><b id="cartCount">0</b></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="pill"><i></i> CURATED TECHNOLOGY · RESPONSIBLE DESIGN</div>
+        <h1>Objects for a<br><em>better everyday.</em></h1>
+        <p>Thoughtfully selected technology and lifestyle essentials, backed by a secure, real-time commerce engine.</p>
+        <div class="hero-actions"><a href="#shop" class="primary">Shop collection <span>↘</span></a><button class="text-btn" id="demoBtn">Try demo account <span>→</span></button></div>
+        <div class="proof"><span>✓ Secure checkout</span><span>✓ Live inventory</span><span>✓ Easy returns</span></div>
+      </div>
+      <div class="hero-art">
+        <div class="orbit one"></div><div class="orbit two"></div><div class="product-shape"><span>CF</span></div>
+        <div class="floating-card fc1"><small>NEW ARRIVAL</small><strong>Precision sound</strong></div>
+        <div class="floating-card fc2"><small>RATED</small><strong>4.9 / 5</strong></div>
+      </div>
+    </section>
+
+    <section class="shop" id="shop">
+      <div class="section-head"><div><span class="kicker">THE COLLECTION</span><h2>Designed to earn its place.</h2></div><p><b id="productCount">0</b> carefully selected products</p></div>
+      <div class="toolbar">
+        <label class="search"><span>⌕</span><input id="searchInput" placeholder="Search the collection..." autocomplete="off"></label>
+        <div class="categories" id="categoryFilters"><button class="active" data-category="">All</button></div>
+        <label class="stock-toggle"><input type="checkbox" id="stockOnly"><span></span> In stock</label>
+      </div>
+      <div id="productGrid" class="product-grid"><div class="loader"><i></i><span>Loading collection</span></div></div>
+      <div id="emptyState" class="empty hidden"><strong>No products found</strong><p>Try a different search or category.</p></div>
+    </section>
+
+    <section class="promise">
+      <button class="promise-card" data-promise="security"><span>01</span><h3>Secure by design</h3><p>Protected accounts and token-based checkout.</p><b>Learn more →</b></button>
+      <button class="promise-card" data-promise="inventory"><span>02</span><h3>Inventory in real time</h3><p>Availability is checked again at checkout.</p><b>Learn more →</b></button>
+      <button class="promise-card" data-promise="pricing"><span>03</span><h3>Transparent totals</h3><p>Every price and discount is clearly shown.</p><b>Learn more →</b></button>
+    </section>
+  </main>
+
+  <footer><a class="logo" href="/"><b>CF</b><span>CommerceForge</span></a><p>FastAPI commerce, made tangible.</p><div><a href="/docs">API Explorer</a><a href="/redoc">Reference</a><a href="/status">Status</a></div></footer>
+
+  <div class="scrim" id="scrim"></div>
+  <aside class="drawer" id="cartDrawer" aria-hidden="true">
+    <div class="drawer-head"><div><span>YOUR BAG</span><h2>Selected objects</h2></div><button class="close-btn" data-close>×</button></div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="cart-empty" id="cartEmpty"><div>◇</div><h3>Your bag is empty</h3><p>Add something considered.</p></div>
+    <div class="cart-summary" id="cartSummary">
+      <div><span>Subtotal</span><strong id="cartTotal">₹0.00</strong></div>
+      <small>Taxes and delivery calculated at checkout.</small>
+      <button id="checkoutBtn" class="primary wide">Continue to checkout <span>→</span></button>
+    </div>
+  </aside>
+
+  <div class="modal" id="authModal" role="dialog" aria-modal="true">
+    <button class="close-btn modal-close" data-close>×</button>
+    <div class="modal-mark">CF</div><span class="kicker">WELCOME TO COMMERCEFORGE</span><h2 id="authTitle">Sign in to continue</h2><p id="authSubtitle">Access your bag, orders, and saved account.</p>
+    <div class="tabs"><button class="active" data-auth-tab="login">Sign in</button><button data-auth-tab="register">Create account</button></div>
+    <form id="authForm">
+      <label class="name-field hidden">Full name<input name="name" autocomplete="name" minlength="2"></label>
+      <label>Email address<input name="email" type="email" autocomplete="email" required placeholder="you@example.com"></label>
+      <label>Password<input name="password" type="password" autocomplete="current-password" required minlength="8" placeholder="Minimum 8 characters"></label>
+      <div id="authError" class="form-error"></div><button class="primary wide" type="submit" id="authSubmit">Sign in <span>→</span></button>
+    </form>
+  </div>
+
+  <div class="modal wide-modal" id="ordersModal" role="dialog" aria-modal="true">
+    <button class="close-btn modal-close" data-close>×</button><span class="kicker">ORDER HISTORY</span><h2>Your purchases</h2><div id="ordersList" class="orders-list"></div>
+  </div>
+
+  <div class="modal" id="checkoutModal" role="dialog" aria-modal="true">
+    <button class="close-btn modal-close" data-close>×</button><span class="kicker">SECURE CHECKOUT</span><h2>Complete your order</h2>
+    <form id="checkoutForm"><label>Shipping address<textarea name="shipping_address" minlength="10" required placeholder="House, street, city, postal code"></textarea></label><label>Coupon code <small>Optional</small><input name="coupon_code" placeholder="Try WELCOME10"></label><div class="checkout-total"><span>Order total</span><strong id="checkoutTotal">₹0.00</strong></div><div id="checkoutError" class="form-error"></div><button class="primary wide" type="submit">Place order <span>→</span></button></form>
+  </div>
+
+  <div class="modal wide-modal" id="adminModal" role="dialog" aria-modal="true">
+    <button class="close-btn modal-close" data-close>×</button><span class="kicker">ADMIN CONSOLE</span><h2>Store operations</h2>
+    <div class="admin-tabs"><button class="active" data-admin-tab="products">Add product</button><button data-admin-tab="orders">Manage orders</button></div>
+    <form id="productForm" class="admin-form"><label>Product name<input name="name" required minlength="2"></label><label>Category<select name="category_id" id="adminCategory" required></select></label><label class="full">Description<textarea name="description" required minlength="10"></textarea></label><label>Price<input name="price" type="number" min="0.01" step="0.01" required></label><label>Stock<input name="stock" type="number" min="0" required></label><div class="full form-error" id="adminError"></div><button class="primary full" type="submit">Create product <span>→</span></button></form>
+    <div id="adminOrders" class="orders-list hidden"></div>
+  </div>
+  <div class="modal product-modal" id="productModal" role="dialog" aria-modal="true">
+    <button class="close-btn modal-close" data-close>×</button><div class="product-detail-visual" id="detailVisual"><span id="detailMonogram">CF</span></div><span class="kicker" id="detailCategory">COLLECTION</span><h2 id="detailName">Product</h2><p id="detailDescription"></p><div class="detail-meta"><div><small>PRICE</small><strong id="detailPrice">₹0</strong></div><div><small>AVAILABILITY</small><strong id="detailStock">In stock</strong></div></div><button class="primary wide" id="detailAdd">Add to bag <span>→</span></button>
+  </div>
+  <div class="modal" id="promiseModal" role="dialog" aria-modal="true">
+    <button class="close-btn modal-close" data-close>×</button><div class="modal-mark" id="promiseMark">01</div><span class="kicker">THE COMMERCEFORGE PROMISE</span><h2 id="promiseTitle">Secure by design</h2><p id="promiseCopy"></p><button class="primary wide" data-close>Continue shopping <span>→</span></button>
+  </div>
+  <div class="toast" id="toast"><span>✓</span><p></p></div>
+  <script src="/static/store.js" defer></script>
+</body>
+</html>
